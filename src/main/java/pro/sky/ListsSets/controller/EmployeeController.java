@@ -7,6 +7,8 @@ import pro.sky.ListsSets.model.Employee;
 import pro.sky.ListsSets.service.EmployeeService;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 
@@ -25,11 +27,29 @@ public class EmployeeController {
         return service.remove(firstName, lastName);
     }
     @GetMapping("/employee/find")
-    public Employee findEmployee(@RequestParam String firstName, @RequestParam String lastName){
-        return service.find(firstName, lastName);
+    public Collection<Employee> findEmployee(){
+        return  service.findAll();
     }
     @GetMapping ("/employee")
-    public Collection<Employee> printAllEmployee(){
+    public Collection<Object> printAllEmployee(){
         return service.printAll();
+    }
+
+    @GetMapping (path = "/departments/all", params = {"departmentID"})
+    public Collection<Employee> allEmployeeFromDepartmentID (@RequestParam int departmentID){
+        return service.printEmployeeFromDepartment(departmentID);
+    }
+   @GetMapping (path = "/departments/all")
+    public Map<Integer, List<Employee>> allEmployeeFromEachDepartmentID(){
+       return service.printEmployeeFromEachDepartments();
+   }
+
+   @GetMapping (path = "/departments/max-salary")
+        public Employee EmployeeWithMaxSalaryFromDepartmentID (@RequestParam int departmentID){
+        return service.printEmployeeWithMaxSalaryFromDepartmentID(departmentID);
+   }
+    @GetMapping (path = "/departments/max-salary")
+    public Employee EmployeeWithMinSalaryFromDepartmentID (@RequestParam int departmentID){
+        return service.printEmployeeWithMinSalaryFromDepartmentID(departmentID);
     }
 }
