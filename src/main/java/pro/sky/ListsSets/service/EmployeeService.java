@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
-    Employee add(String firstName, String lastName);
-    Employee remove (String firstName, String lastName);
+
     Collection<Employee> findAll();
 
     Collection<Object> printAll();
@@ -20,4 +19,10 @@ public interface EmployeeService {
     Employee printEmployeeWithMaxSalaryFromDepartmentID(int departmentID);
 
     Employee printEmployeeWithMinSalaryFromDepartmentID(int departmentID);
+
+    Employee add(String firstName, String lastName, int salary, int departmentID);
+
+    Employee remove(String firstName, String lastName, int salary, int departmentID);
+
+    Employee find(String firstName, String lastName);
 }

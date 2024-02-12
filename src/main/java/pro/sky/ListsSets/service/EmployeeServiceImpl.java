@@ -5,10 +5,8 @@ import pro.sky.ListsSets.exception.EmployeeAlreadyAddedException;
 import pro.sky.ListsSets.exception.EmployeeNotFoundException;
 import pro.sky.ListsSets.model.Employee;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import javax.xml.validation.Validator;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparingInt;
@@ -16,20 +14,16 @@ import static java.util.Comparator.comparingInt;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-   private final EmployeeService employeeService;
-
-    public EmployeeServiceImpl (EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
     private Map <String, Employee> employees;
+    private EmployeeService employeeService;
 
-  //  public EmployeeServiceImpl() {
-  //     employees = new HashMap<>() ;
-  //  }
+    public EmployeeServiceImpl() {
+      employees = new HashMap<>() ;
+    }
 
     @Override
-    public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee add(String firstName, String lastName, int salary, int departmentID) {
+        Employee employee = new Employee(firstName, lastName,salary, departmentID);
         if (employees.containsKey(employee.getFullName())){
            throw new EmployeeAlreadyAddedException();
         }
@@ -38,13 +32,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee remove(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee remove(String firstName, String lastName, int salary, int departmentID) {
+        Employee employee = new Employee(firstName, lastName, salary, departmentID);
         if (employees.containsKey(employee.getFullName())){
             return (Employee)  employees.remove(employee.getFullName());
 
         }
         throw new EmployeeNotFoundException();
+    }
+
+    @Override
+    public Employee find(String firstName, String lastName) {
+            if (employees.containsKey(firstName + lastName)) {
+                return employees.get(firstName + lastName);
+            } else {
+            throw new EmployeeNotFoundException();
+        }
     }
 
     @Override
