@@ -41,7 +41,7 @@ public class EmployeeServiseImplTest {
     }
     @Test
     public void findExistEmployee(){
-        Employee existEmployee = out.add(firstName,lastName,maxSalary,departmentID );
+        Employee existEmployee = out.add(firstName,lastName,maxSalary,departmentID);
         Employee findEmployee = out.find(firstName, lastName);
         Assertions.assertEquals(existEmployee,findEmployee);
     }

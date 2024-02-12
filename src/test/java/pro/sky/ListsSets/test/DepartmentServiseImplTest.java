@@ -9,13 +9,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.ListsSets.exception.EmployeeNotFoundException;
-import pro.sky.ListsSets.model.Employee;
 import pro.sky.ListsSets.service.DepartmentServiseImpl;
 import pro.sky.ListsSets.service.EmployeeService;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import static pro.sky.ListsSets.EmployeeTestData.*;
 
@@ -28,33 +26,33 @@ public class DepartmentServiseImplTest {
 
     @Test
     public void findEmployeeWithMinSalaryInDepartment(){
-        Mockito.when(employeeService.findAll()).thenReturn(Employees);
+        Mockito.when(employeeService.findAll()).thenReturn(EMPLOYEE_SET);
         Assertions.assertEquals(employeeWithMinSalary,out.printEmployeeWithMinSalaryFromDepartmentID(departmentID));
     }
     @Test
     public void throwExceptionWhenFindMinSalaryWhenEmployeesareEmpty(){
         Mockito.when(employeeService.findAll()).thenReturn(List.of());
-        Assertions.assertThrows(EmployeeNotFoundException.class, (Executable) out.printEmployeeWithMinSalaryFromDepartmentID(departmentID));
+        Assertions.assertThrows(EmployeeNotFoundException.class, ()-> out.printEmployeeWithMinSalaryFromDepartmentID(departmentID));
     }
     @Test
     public void throwExceptionWhenFindMinSalaryWhenDepartmentDontExist(){
-        Mockito.when(employeeService.findAll()).thenReturn(Employees);
-        Assertions.assertThrows(EmployeeNotFoundException.class, (Executable) out.printEmployeeWithMinSalaryFromDepartmentID(otherDepartmentID));
+        Mockito.when(employeeService.findAll()).thenReturn(EMPLOYEE_SET);
+        Assertions.assertThrows(EmployeeNotFoundException.class, ()-> out.printEmployeeWithMinSalaryFromDepartmentID(otherDepartmentID));
     }
     @Test
     public void findEmployeeWithMaxSalaryInDepartment(){
-        Mockito.when(employeeService.findAll()).thenReturn(Employees);
+        Mockito.when(employeeService.findAll()).thenReturn(EMPLOYEE_SET);
         Assertions.assertEquals(employeeWithMaxSalary,out.printEmployeeWithMaxSalaryFromDepartmentID(departmentID));
     }
     @Test
     public void throwExceptionWhenFindMaxSalaryWhenEmployeesAreEmpty(){
         Mockito.when(employeeService.findAll()).thenReturn(List.of());
-        Assertions.assertThrows(EmployeeNotFoundException.class, (Executable) out.printEmployeeWithMaxSalaryFromDepartmentID(departmentID));
+        Assertions.assertThrows(EmployeeNotFoundException.class, ()-> out.printEmployeeWithMaxSalaryFromDepartmentID(departmentID));
     }
     @Test
     public void throwExceptionWhenFindMaxSalaryWhenDepartmentDontExist(){
-        Mockito.when(employeeService.findAll()).thenReturn(Employees);
-        Assertions.assertThrows(EmployeeNotFoundException.class, (Executable) out.printEmployeeWithMaxSalaryFromDepartmentID(otherDepartmentID));
+        Mockito.when(employeeService.findAll()).thenReturn(EMPLOYEE_SET);
+       Assertions.assertThrows(EmployeeNotFoundException.class,()-> out.printEmployeeWithMinSalaryFromDepartmentID(otherDepartmentID));
     }
     @Test
     public void returnEmployeesFromDepartment(){
@@ -68,7 +66,7 @@ public class DepartmentServiseImplTest {
     }
     @Test
     public void findSalarySumInDepartment(){
-        Mockito.when(employeeService.findAll()).thenReturn(Employees);
+        Mockito.when(employeeService.findAll()).thenReturn(EMPLOYEE_SET);
         Assertions.assertEquals(salarySumInEmployees,out.salarySumFromDepartment(departmentID));
     }
 }
